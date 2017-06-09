@@ -56,13 +56,18 @@ def main(in_df, cut_distance_cols='', cut_distance_rows='',
         #print in_df.T.head()
         link = sch.linkage(in_df.T, method, metric)
         den_cols = sch.dendrogram(link, color_threshold=cut_distance_cols, ax=ax2, orientation='top')
-        ax2.set_ylabel('Distance')
+        ax2.set_ylabel('Distance', rotation=0, labelpad=30)
         ax2.yaxis.set_label_position('right') 
         ax2.spines['top'].set_visible(False)
         ax2.spines['bottom'].set_visible(False)
         ax2.spines['left'].set_visible(False)
-        ax2.spines['right'].set_position(('outward', 10)) 
+        ax2.spines['right'].set_position(('outward', 10))
         #clean_axis(ax2)
+        
+        yticks = ax2.get_yticks()
+        ax2.set_yticks(yticks[1:-1])
+        
+        
         ax2.tick_params(axis='y',# changes apply to the x-axis
                     which='both',# both major and minor ticks are affected
                     left='off', 
@@ -75,6 +80,7 @@ def main(in_df, cut_distance_cols='', cut_distance_rows='',
                     top='off',
                     labelbottom='off',
                     labeltop='off') 
+        
         fig.suptitle(title, fontsize=16, y = 0.95)
     else:
         clean_axis(ax2)
@@ -94,6 +100,8 @@ def main(in_df, cut_distance_cols='', cut_distance_rows='',
     ax3.spines['right'].set_visible(False)     
     ax3.spines['bottom'].set_visible(True)
     ax3.spines['bottom'].set_position(('outward', 10)) 
+    xticks = ax3.get_xticks()
+    ax3.set_xticks(xticks[1:-1]) 
     
     ax3.tick_params(axis='x',# changes apply to the x-axis
                     which='both',# both major and minor ticks are affected
