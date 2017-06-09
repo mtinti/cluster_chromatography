@@ -21,21 +21,30 @@ def clean_axis(ax):
         sp.set_visible(False)        
         
         
-def main(in_df, 
+def main(in_df,
+         #distance to cut the columns dendogram
          cut_distance_cols='',
-         cut_distance_rows='', 
+         #distance to cut the rows dendogram
+         cut_distance_rows='',
+         #clustering parameters to input to scipy.linkage
+         #https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html
          method='ward', 
          metric='euclidean',
+         #bool to plot the column dendogram
          cluster_columns = True,
+         #bool make sence only if cluster_columns = True
          order_row_and_columns=True,
          figsize=None, 
+         #to pass to matplolib set_cmap
+         #https://matplotlib.org/examples/color/colormaps_reference.html
          color_map_id='Blues',
+         #plot every n ticks for the x axes of the heatmap
          step_first_x = 5,
          color_bar = True,
-         col_to_mw = '' ,
          xTitle_padding=1.05,
          title='Main Title',
          fig_name='test.png',
+         #add a second axis for the molecular weight
          add_second_axis={},
          height_ratios=[1, 4],
          hspace=0.05):
