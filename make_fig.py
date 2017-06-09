@@ -21,18 +21,23 @@ def clean_axis(ax):
         sp.set_visible(False)        
         
         
-def main(in_df, cut_distance_cols='', cut_distance_rows='', 
-         method='ward', metric='euclidean',
+def main(in_df, 
+         cut_distance_cols='',
+         cut_distance_rows='', 
+         method='ward', 
+         metric='euclidean',
          cluster_columns = True,
          order_row_and_columns=True,
-         interpolation=True, figsize=None, 
+         figsize=None, 
          color_map_id='Blues',
-         step_first_x=5,
+         step_first_x = 5,
          color_bar = True,
          col_to_mw = '' ,
          xTitle_padding=1.05,
          title='Main Title',
-         add_second_axis={}):
+         add_second_axis={},
+         height_ratios=[1, 4],
+         hspace=0.05):
 
     if figsize == None:
         fig = plt.figure()
@@ -42,8 +47,8 @@ def main(in_df, cut_distance_cols='', cut_distance_rows='',
     
     gs = gridspec.GridSpec(2, 2,
                         width_ratios=[1, 4],
-                        height_ratios=[1, 4],
-                        wspace=0.05, hspace=0.05
+                        height_ratios=height_ratios,
+                        wspace=0.05, hspace=hspace
                        )
 
     #corner top left, placeholder for colormap
@@ -197,7 +202,8 @@ if __name__ == '__main__':
     test_df = test_df.apply(norMax,1)
     test_df = test_df.dropna()
     test_df[test_df<0.01]=0
-    
+
+    #params for small figures (few hundreds  row)
     main(
          test_df.iloc[:50,:],
          method='ward', 
@@ -221,7 +227,7 @@ if __name__ == '__main__':
                           }
          )
     
-    
+    #params for bigger figures (thousands of rows)
     main(
          test_df,
          method='ward', 
@@ -229,7 +235,7 @@ if __name__ == '__main__':
          cluster_columns = True,
          order_row_and_columns= True,
          color_map_id='cool',
-         figsize=(12,20),
+         figsize=(12, 20),
          cut_distance_cols=20,
          cut_distance_rows=20,
          step_first_x = 5,
@@ -242,7 +248,10 @@ if __name__ == '__main__':
                           37:'66.4', 
                           41:'17', 
                           47:'0.1'} 
-                          }
+                          },
+        height_ratios=[1, 8],
+        hspace=0.02
+        
          )
 
 
