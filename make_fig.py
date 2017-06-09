@@ -62,12 +62,8 @@ def main(in_df, cut_distance_cols='', cut_distance_rows='',
         ax2.spines['bottom'].set_visible(False)
         ax2.spines['left'].set_visible(False)
         ax2.spines['right'].set_position(('outward', 10))
-        #clean_axis(ax2)
-        
         yticks = ax2.get_yticks()
         ax2.set_yticks(yticks[1:-1])
-        
-        
         ax2.tick_params(axis='y',# changes apply to the x-axis
                     which='both',# both major and minor ticks are affected
                     left='off', 
@@ -117,8 +113,6 @@ def main(in_df, cut_distance_cols='', cut_distance_rows='',
                     labelright ='off',
                     labelleft='off')  
     
-
- 
     #the heatmap plot
     ax4 = plt.subplot(gs[3])
     
@@ -203,12 +197,9 @@ if __name__ == '__main__':
     test_df = test_df.apply(norMax,1)
     test_df = test_df.dropna()
     test_df[test_df<0.01]=0
-    test_df = test_df.iloc[:50,:]
-    #test_df = test_df.iloc[0:20,:]
-    #g = sns.clustermap(test_df,col_cluster=False )
-    #plt.setp(g.ax_heatmap.yaxis.get_majorticklabels(), rotation=0)
+    
     main(
-         test_df,
+         test_df.iloc[:50,:],
          method='ward', 
          metric='euclidean',
          cluster_columns = True,
@@ -218,7 +209,7 @@ if __name__ == '__main__':
          cut_distance_cols=2,
          cut_distance_rows=2,
          step_first_x = 5,
-         title='test',
+         title='selection',
          add_second_axis={'label':'MW kDa','values': {
                                                                       
                           15:'1.300',
@@ -231,6 +222,28 @@ if __name__ == '__main__':
          )
     
     
+    main(
+         test_df,
+         method='ward', 
+         metric='euclidean',
+         cluster_columns = True,
+         order_row_and_columns= True,
+         color_map_id='cool',
+         figsize=(12,20),
+         cut_distance_cols=20,
+         cut_distance_rows=20,
+         step_first_x = 5,
+         title='all',
+         add_second_axis={'label':'MW kDa','values': {
+                                                                      
+                          15:'1.300',
+                          22:'660', 
+                          34:'150', 
+                          37:'66.4', 
+                          41:'17', 
+                          47:'0.1'} 
+                          }
+         )
 
 
 
