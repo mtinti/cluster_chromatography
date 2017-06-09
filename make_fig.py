@@ -11,7 +11,7 @@ import matplotlib.gridspec as gridspec
 import pandas as pd
 import numpy as np
 norMax = lambda x: x / x.max()
-
+np.random.seed(seed=1)
            
 def clean_axis(ax):
     """Remove ticks, tick labels, and frame from axis"""
@@ -43,7 +43,7 @@ def main(in_df, cut_distance_cols='', cut_distance_rows='',
     gs = gridspec.GridSpec(2, 2,
                         width_ratios=[1, 4],
                         height_ratios=[1, 4],
-                        wspace=0.05,hspace=0.05
+                        wspace=0.05, hspace=0.05
                        )
 
     #corner top left, placeholder for colormap
@@ -137,10 +137,12 @@ def main(in_df, cut_distance_cols='', cut_distance_rows='',
         new_ax.set_xticks(xticks)
         xtickslabels = [add_second_axis['values'][n+0.5] for n in xticks]
         new_ax.set_xticklabels(xtickslabels)
+        
     if order_row_and_columns == True:
         heatmap=ax4.pcolor(in_df.iloc[den_rows['leaves'],den_cols['leaves']])
     else:
         heatmap=ax4.pcolor(in_df.ix[den_rows['leaves']])
+        
     ax4.set_aspect('auto')
     ax4.set_ylim(0,in_df.shape[0])
     ax4.set_xlim(0,in_df.shape[1])
@@ -153,7 +155,7 @@ def main(in_df, cut_distance_cols='', cut_distance_rows='',
                     labelbottom='on',
                     labeltop='off')
     
-    ax4.tick_params(axis='y',# changes apply to the x-axis
+    ax4.tick_params(axis='y',# changes apply to the y-axis
                     which='both',# both major and minor ticks are affected
                     left='off', 
                     right='off',
@@ -193,7 +195,7 @@ if __name__ == '__main__':
     test_df = test_df.apply(norMax,1)
     test_df = test_df.dropna()
     test_df[test_df<0.01]=0
-    test_df = test_df.sample(50)
+    test_df = test_df.iloc[:50,:]
     #test_df = test_df.iloc[0:20,:]
     #g = sns.clustermap(test_df,col_cluster=False )
     #plt.setp(g.ax_heatmap.yaxis.get_majorticklabels(), rotation=0)
@@ -203,12 +205,12 @@ if __name__ == '__main__':
          metric='euclidean',
          cluster_columns = True,
          order_row_and_columns= True,
-         color_map_id='Blues',
+         color_map_id='cool',
          figsize=(12,12),
-         cut_distance_cols=25,
-         cut_distance_rows=20,
+         cut_distance_cols=2,
+         cut_distance_rows=2,
          step_first_x = 5,
-         title='Main Title',
+         title='test',
          add_second_axis={'label':'MW kDa','values': {
                                                                       
                           15:'1.300',
