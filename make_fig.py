@@ -35,6 +35,7 @@ def main(in_df,
          col_to_mw = '' ,
          xTitle_padding=1.05,
          title='Main Title',
+         fig_name='test.png',
          add_second_axis={},
          height_ratios=[1, 4],
          hspace=0.05):
@@ -189,7 +190,7 @@ def main(in_df,
     cbaxes = fig.add_axes([1, 0.4, 0.03, 0.2])    
     plt.colorbar(heatmap, cax = cbaxes, orientation='vertical')
     cbaxes.spines['right'].set_position(('outward', 5))
-    fig.savefig(title+'.svg')
+    fig.savefig(fig_name)
     plt.show()
     
 
@@ -216,6 +217,7 @@ if __name__ == '__main__':
          cut_distance_rows=2,
          step_first_x = 5,
          title='selection',
+         fig_name = 'selection.png',
          add_second_axis={'label':'MW kDa','values': {
                                                                       
                           15:'1.300',
@@ -240,6 +242,7 @@ if __name__ == '__main__':
          cut_distance_rows=20,
          step_first_x = 5,
          title='all',
+         fig_name = 'all.png',
          add_second_axis={'label':'MW kDa','values': {
                                                                       
                           15:'1.300',
